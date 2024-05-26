@@ -15,6 +15,10 @@ Post.init(
                 unique: false
             },
         },
+        title: {
+            type: DataTypes.STRING(200),
+            allowNull:false  
+        },
         content: {
             type: DataTypes.STRING(1000),
             allowNull: false,
