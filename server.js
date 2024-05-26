@@ -1,14 +1,14 @@
 // Local Modules
 const routes = require('./controllers');
 const helpers = require('./utils/helpers');
-const logger = require('logger');
-const {log, info, warn, error} = new logger();
+const {log, info, warn, error, help} = require('@frenzie24/logger');
 log('hi!', 'green');
 // Third-Party Modules
 const path = require('path');
 const express = require('express');
 const session = require('express-session');
 const exphbs = require('express-handlebars');
+
 
 
 const sequelize = require('./config/connection');
@@ -47,7 +47,7 @@ const sess = {
 };
 // Add express-session and store as Express.js middleware
 app.use(session(sess));
-
+log('penis', null, 'bgYellow');
 // Inform Express.js on which template engine to use
 app.engine('handlebars', hbs.engine);
 app.set('view engine', 'handlebars');
