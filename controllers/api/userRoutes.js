@@ -21,7 +21,7 @@ router.post('/login', async (req, res) => {
   info('attempting log in')
   try {
     const userData = await User.findOne({ where: { email: req.body.email } });
-    log(['Login success.', userData], 'green', 'bgBlack');
+   
     if (!userData) {
       warn(`userData is undefinded`)
       res
@@ -39,11 +39,11 @@ router.post('/login', async (req, res) => {
         .json({ message: 'Incorrect email or password, please try again' });
       return;
     }
-
+    log(['Login success.', userData], 'green', ['bgBlack', 'bgWhite']);
     req.session.save(() => {
       req.session.user_id = userData.id;
       req.session.logged_in = true;
-      log(`User: ${userData.name} has logged in.`)
+      log(`User: ${userData.name} has logged in.`);
       res.status(200).json({ user: userData, message: 'You are now logged in!' });
     });
 
