@@ -1,0 +1,37 @@
+const { Model, DataTypes } = require('sequelize');
+const bcrypt = require('bcrypt');
+const sequelize = require('../config/connection');
+
+class Post extends Model {
+
+}
+Post.init(
+    {
+        user_id: {
+            type: DataTypes.INTEGER,
+            references: {
+                model: 'User',
+                key: 'id',
+            },
+        },
+        content: {
+            type: DataTypes.STRING(1000),
+            allowNull: false,
+        },
+        date: {
+            type: DataTypes.DATE,
+            defaultValue: DataTypes.NOW,
+
+        },
+    },
+    {
+       
+        sequelize,
+        timestamps: false,
+        freezeTableName: true,
+        underscored: true,
+        modelName: 'user',
+    }
+);
+
+module.exports = User;
