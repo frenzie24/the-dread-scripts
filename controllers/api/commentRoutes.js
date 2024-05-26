@@ -10,30 +10,34 @@ router.post('/', withAuth, async (req, res) => {
             ...req.body,
             user_id: req.session.user_id,
         });
-
+        log('Comment created.', 'green')
         res.status(200).json(newComment);
     } catch (err) {
+        error(err)
         res.status(400).json(err);
     }
 });
 
 router.delete('/:id', withAuth, async (req, res) => {
-    info(`attempting to delete Comment with id: ${req.params.id}`)
+    const _id = req.params.id;
+    info(`attempting to delete Comment with id: ${_id}`)
     try {
         const commentData = await Comment.destroy({
             where: {
-                id: req.params.id,
+                id: _id,
                 user_id: req.session.user_id,
             },
         });
-
         if (!commentData) {
-            res.status(404).json({ message: 'No project found with this id!' });
+            warn(`No comment found with id: ${_id}`);
+            res.status(404).json({ message: 'No Comment found with this id!' });
             return;
         }
-
+        
+        log('comment deleted', 'green');
         res.status(200).json(commentData);
     } catch (err) {
+        error(err)
         res.status(500).json(err);
     }
 });
