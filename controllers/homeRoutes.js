@@ -1,6 +1,7 @@
 const router = require('express').Router();
 const { Project, User } = require('../models');
 const withAuth = require('../utils/auth');
+const {log, info, warn, error} = require('@frenzie24/logger');
 
 router.get('/', async (req, res) => {
   try {
@@ -73,6 +74,7 @@ router.get('/profile', withAuth, async (req, res) => {
 router.get('/login', (req, res) => {
   // If the user is already logged in, redirect the request to another route
   if (req.session.logged_in) {
+    info(`User is already logged in.`)
     res.redirect('/profile');
     return;
   }

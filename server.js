@@ -47,7 +47,6 @@ const sess = {
 };
 // Add express-session and store as Express.js middleware
 app.use(session(sess));
-log('penis', null, 'bgYellow');
 // Inform Express.js on which template engine to use
 app.engine('handlebars', hbs.engine);
 app.set('view engine', 'handlebars');
