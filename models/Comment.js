@@ -13,6 +13,7 @@ Comment.init(
             references: {
                 model: 'Post',
                 key: 'id',
+                unique: false
             },
         },
         user_id: {
@@ -20,6 +21,7 @@ Comment.init(
             references: {
                 model: 'User',
                 key: 'id',
+                unique: false
             },
         },
         content: {
@@ -38,7 +40,7 @@ Comment.init(
         timestamps: false,
         freezeTableName: true,
         underscored: true,
-        modelName: 'user',
+        modelName: 'Comment',
     }
 );
 

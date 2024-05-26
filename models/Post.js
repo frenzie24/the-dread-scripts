@@ -12,6 +12,7 @@ Post.init(
             references: {
                 model: 'User',
                 key: 'id',
+                unique: false
             },
         },
         content: {
@@ -30,7 +31,7 @@ Post.init(
         timestamps: false,
         freezeTableName: true,
         underscored: true,
-        modelName: 'user',
+        modelName: 'Post',
     }
 );
 
