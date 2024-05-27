@@ -13,7 +13,7 @@ User.hasMany(Comment, {
 
 Comment.belongsTo(User, {
     foreignKey: 'user_id',
-    through: {model:Comment, as: 'comments'}
+    through: { model: Comment, as: 'comments' }
 });
 
 User.hasMany(Post, {
@@ -32,7 +32,12 @@ Post.hasMany(Comment, {
 
 Comment.belongsTo(Post, {
     foreignKey: 'post_id',
-    through:{model:Comment, as: 'comments'}
+    through: { model: Comment, as: 'comments' }
+});
+
+User.belongsTo(Comment, {
+    foreignKey: 'id',
+    through: { model: User, as: 'user' }
 });
 
 module.exports = { User, Comment, Post };
