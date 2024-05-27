@@ -13,7 +13,8 @@ router.get('/', async (req, res) => {
           model: User,
           attributes: ['name'],
         }, {
-          model: Comment
+          model: Comment,
+          include: [{ model:User, attributes:['name']}]
         },
       ],
     });
@@ -37,11 +38,14 @@ router.get('/post/:id', async (req, res) => {
 
   try {
     const _id = Math.floor(req.params.id);
+    // if _id is not an integer then exit 
     if (!Number.isInteger(_id)) {
       warn(`Bad request: id invalid`);
       res.status(400).json({ issue: 'id provided is invalid', solution: 'id needs to be an integer' });
       return;
     }
+    // find the post by id, include related comments and related user's name attribute
+    
     info(`Attempting to retrieve post with id: ${_id}`)
     const postData = await Post.findByPk(_id, {
       include: [
@@ -56,12 +60,25 @@ router.get('/post/:id', async (req, res) => {
     });
 
     const post = postData.get({ plain: true });
-    log(post.Comments)//, ['white', 'brightBlue'], ['bgBrightBlue', 'bgWhite'])
+    /*
+      post = {
+        id,
+        user_id,
+        title,
+        content,
+        date,
+        User.name,
+        Comments[any comments attached to this post will have its full data here and include the User.name related to the comment]
+      }
+    */
+    log(post)
+    // render the post page
     res.render('post', {
       post,
       logged_in: req.session.logged_in
     });
   } catch (err) {
+    // we had an eror log the error and send a message to the client
     error(err);
     res.status(500).json(err);
   }
