@@ -6,7 +6,7 @@ const { log, info, warn, error } = require('@frenzie24/logger');
 router.get('/', async (req, res) => {
   log('Homepage request');
   try {
-    // Get all posts and JOIN with user data
+    // Get all posts and JOIN with user data and comments
     const postsData = await Post.findAll({
       include: [
         {
@@ -20,10 +20,10 @@ router.get('/', async (req, res) => {
     // we need to get comments here as well: refer to previous homework
     // Serialize data so the template can read it
     const posts = postsData.map((post) => post.get({ plain: true }));
-
+    log(posts)
     // Pass serialized data and session flag into template
     res.render('homepage', {
-      //    posts, 
+     posts, 
       logged_in: req.session.logged_in
     });
   } catch (err) {
@@ -43,7 +43,7 @@ router.get('/post/:id', async (req, res) => {
       return;
     }
     info(`Attempting to retrieve post with id: ${_id}`)
-    const postData = await Post.findByPk(req.params.id, {
+    const postData = await Post.findByPk(_id, {
       include: [
         {
           model: User,
