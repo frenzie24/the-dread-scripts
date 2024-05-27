@@ -57,7 +57,7 @@ router.get('/post/:id', async (req, res) => {
     const post = postData.get({ plain: true });
     log(post.Comments)//, ['white', 'brightBlue'], ['bgBrightBlue', 'bgWhite'])
     res.render('post', {
-      ...post,
+      post,
       logged_in: req.session.logged_in
     });
   } catch (err) {
