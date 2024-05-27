@@ -1,51 +1,85 @@
 const router = require('express').Router();
-const { Project, User } = require('../models');
+const { Post, User, Comment } = require('../models');
 const withAuth = require('../utils/auth');
+const { log, info, warn, error } = require('@frenzie24/logger');
 
 router.get('/', async (req, res) => {
+  log('Homepage request');
   try {
-    // Get all projects and JOIN with user data
-    const projectData = await Project.findAll({
+    // Get all posts and JOIN with user data and comments
+    const postsData = await Post.findAll({
       include: [
         {
           model: User,
           attributes: ['name'],
+        }, {
+          model: Comment,
+          include: [{ model:User, attributes:['name']}]
         },
       ],
     });
-
+    // we need to get comments here as well: refer to previous homework
     // Serialize data so the template can read it
-    const projects = projectData.map((project) => project.get({ plain: true }));
-
+    const posts = postsData.map((post) => post.get({ plain: true }));
+    log(posts)
     // Pass serialized data and session flag into template
-    res.render('homepage', { 
-      projects, 
-      logged_in: req.session.logged_in 
+    res.render('homepage', {
+     posts, 
+      logged_in: req.session.logged_in
     });
   } catch (err) {
+    error(err);
     res.status(500).json(err);
   }
 });
 
-// navs to projects and gets data from associated id
-router.get('/project/:id', async (req, res) => {
+// navs to post and gets data from associated id
+router.get('/post/:id', async (req, res) => {
+
   try {
-    const projectData = await Project.findByPk(req.params.id, {
+    const _id = Math.floor(req.params.id);
+    // if _id is not an integer then exit 
+    if (!Number.isInteger(_id)) {
+      warn(`Bad request: id invalid`);
+      res.status(400).json({ issue: 'id provided is invalid', solution: 'id needs to be an integer' });
+      return;
+    }
+    // find the post by id, include related comments and related user's name attribute
+    
+    info(`Attempting to retrieve post with id: ${_id}`)
+    const postData = await Post.findByPk(_id, {
       include: [
         {
           model: User,
           attributes: ['name'],
+        }, {
+          model: Comment,
+          include: [{ model:User, attributes:['name']}]
         },
       ],
     });
 
-    const project = projectData.get({ plain: true });
-
-    res.render('project', {
-      ...project,
+    const post = postData.get({ plain: true });
+    /*
+      post = {
+        id,
+        user_id,
+        title,
+        content,
+        date,
+        User.name,
+        Comments[any comments attached to this post will have its full data here and include the User.name related to the comment]
+      }
+    */
+    log(post)
+    // render the post page
+    res.render('post', {
+      post,
       logged_in: req.session.logged_in
     });
   } catch (err) {
+    // we had an eror log the error and send a message to the client
+    error(err);
     res.status(500).json(err);
   }
 });
@@ -73,6 +107,7 @@ router.get('/profile', withAuth, async (req, res) => {
 router.get('/login', (req, res) => {
   // If the user is already logged in, redirect the request to another route
   if (req.session.logged_in) {
+    info(`User is already logged in.`)
     res.redirect('/profile');
     return;
   }

@@ -4,41 +4,107 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Fund My Project!</title>
-  <link rel="stylesheet" href="/css/jass.css">
-  <link rel="stylesheet" href="/css/style.css">
+
+  <!--<link href="./css/output.css" rel="stylesheet">-->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tw-elements/css/tw-elements.min.css" />
+  <script src="https://cdn.tailwindcss.com/3.3.0"></script>
+  <script>
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        fontFamily: {
+          sans: ["Roboto", "sans-serif"],
+          body: ["Roboto", "sans-serif"],
+          mono: ["ui-monospace", "monospace"],
+        },
+      },
+      corePlugins: {
+        preflight: false,
+      },
+    };
+  </script>
+  <link rel="icon" type="image/x-icon" href="./assets/images/icons8-potted-plant-windows-11-color-16.png">
+
+  <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+
+  <title>The Dread Scripts</title>
 </head>
 
-<body>
-  <div class="flex-column justify-space-around">
-    <header class="display-flex justify-space-between align-center p-2">
-      <h1>
-        <span role="img" aria-label="money">💸</span>
-        <a href="/">Fund My Project!</a>
-      </h1>
-      <nav>
-        <!-- Conditionally render login or logout links -->
-        {{#if logged_in}}
-        <a href="/profile">profile</a> |
-        <button class="no-button" id="logout">logout</button>
-        {{else}}
-        <a href="/login">login</a>
-        {{/if}}
-      </nav>
-    </header>
-    <main class="container container-fluid mt-5">
-      <!-- Render the sub layout -->
-      {{{ body }}}
-    </main>
-    <footer>
-      
-    </footer>
-  </div>
+<body class="bg-[#e8f2ca] text-green-900  flex flex-row flex-wrap justify-center">
+  <main class="max-w-6xl">
+    <div class="flex flex-col min-h-screen bg-[#e8f2ca]">
+      <!-- header -->
+      <header class="sticky top-0 flex justify-between flex-row flex-wrap text-center px-4 bg-[#e8f2ca]">
+        <!-- left nav -->
+        <nav class="flex flex-row flex-wrap">
+          <a href="/"><button class="p-2"><img class="h-4 m-auto" src="./assets/images/icons8-leaf-48.png"
+                alt="A dark green leaf icon">Plants</button></a>
 
-  <!-- Render script for logged in users only -->
-  {{#if logged_in}}
-  <script src="/js/logout.js"></script>
-  {{/if}}
+        </nav>
+        <!-- Title -->
+        <h3 class="font-normal text-4xl p-1">The Dread Scripts</h3>
+        <!-- right nav -->
+        <nav class="flex flex-row text-center">
+          {{!-- buttons with icon and text on same line - needs text alignment fix
+          <button class="flex flex-row flex-wrap p-4 text-center"><img class="h-6 m-auto pr-1"
+              src="./assets/images/icons8-login-48.png"
+              alt="A dark green login icon represented by an arrow leading into a rounded square">Login</button>
+          <button class="flex flex-row flex-wrap p-4 text-center"><img class="h-6 m-auto pr-1"
+              src="./assets/images/icons8-search-48.png"
+              alt="A dark green search icon represented by a magnifying glass">Search</button>
+          --}}
+          {{!--
+          if the user is logged in, display the profile btn and nav to profile on click
+          THIS IS NOT BEHAVING AS EXPECTED AND NEEDS INVESTIGATION ON ALL VIEWS -Charles
+          --}}
+          {{#if logged_in}}
+          <a href="/login"><button class="p-2"><img class="h-4 m-auto" src="./assets/images/icons8-account-48.png"
+                alt="A dark green login icon represented by an arrow leading into a rounded square">Account</button>
+          </a>
+          {{else}}
+          <a href="/profile"><button class="p-2"><img class="h-4 m-auto" src="./assets/images/icons8-login-48.png"
+                alt="A dark green login icon represented by an arrow leading into a rounded square">Login</button>
+          </a>
+          {{/if}}
+          {{!--<div id="search" class="hidden rounded-lg bg-[#B7D55D] px-2 py-1">
+            <input id="searchBar" type="text" class="h-full w-96 p-2" value="" placeholder="Search for plants">
+          </div>
+          <button id="searchBtn" class="p-2"><img class="h-4 m-auto" src="./assets/images/icons8-search-48.png"
+              alt="A dark green search icon represented by a magnifying glass">Search</button>
+              --}}
+
+        </nav>
+      </header>
+      {{!--
+      {{{body}}} will be the part of the page that updates when users nav to new views
+      for instance when landing on the site for the first time, {{{body}}} will be the contents of
+      homepage.handlebars
+
+  
+      --}}
+      {{{body}}}
+    </div>
+    {{!-- footer --}}
+    <footer class="h-32 w-full max-w-6xl mt-auto bg-cover rounded-t-lg bg-bottom bg-[url('./assets/images/forrest-log.jpg')] text-yellow-200">
+      <div class="p-4">
+        <div class="text-xs">The Dread Scripts © 2024</div>
+        {{!-- ICONS ATTRIBUTION NEEDS ATTENTION!!!!!! -Charles --}}
+        <div class="text-[0.5em]">Icons provided by <a target="_blank" href="https://icons8.com">Icons8</a>
+        </div>
+      </div>
+    </footer>
+    <script>
+      // jQuery to add the click event to searchBtn with toggleSearchHide as the handler
+      $('#searchBtn').on('click', toggleSearchHide);
+    </script>
+    {{!--
+    search js to link search results and population section.
+
+   
+    --}}
+  </main>
 </body>
 
 </html>
