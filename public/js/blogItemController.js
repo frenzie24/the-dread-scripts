@@ -11,6 +11,25 @@ class BlogItemController {
         this.postId = selector;
         this.selector = `blogItemFormPost${selector}` + (!isPost ? `Comment` : ``);
 
+        const deletePost = async (ev) => {
+            ev.preventDefault();
+            if (ev.currentTarget.hasAttribute('data-id')) {
+                const id = ev.currentTarget.getAttribute('data-id');
+
+                const response = await fetch(`/api/posts/${id}`, {
+                    method: 'DELETE',
+                });
+
+                if (response.ok) {
+                    location.reload(true);
+                } else {
+                    debugger;
+                    document.location.href = response.url;
+                    //   alert('Failed to delete plant');
+                }
+            }
+        }
+
         const handleAdd = async (ev) => {
             ev.preventDefault();
             // select this blog items title and content element and get and trim their value
@@ -67,7 +86,14 @@ class BlogItemController {
             debugger;
             console.log('add btn clicked');
         }
-        $(`#${this.selector} #addBtn`).on('click', handleAdd);
+
+        $(() => {
+
+            $(`#${this.selector} #addBtn`).on('click', handleAdd);
+
+            $(`#deletePostBtn${this.postId}`).on('click', deletePost)
+        })
+
 
 
     }

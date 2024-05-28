@@ -39,10 +39,10 @@ router.get('/', async (req, res) => {
 });
 
 // navs to post and gets data from associated id
-router.get('/post/:id', async (req, res) => {
+router.get('/post/', async (req, res) => {
 
   try {
-    const _id = Math.floor(req.params.id);
+    const _id = Math.floor(req.query.id);
     // if _id is not an integer then exit 
     if (!Number.isInteger(_id)) {
       warn(`Bad request: id invalid`);
