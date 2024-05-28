@@ -7,6 +7,9 @@ module.exports = {
     // format large numbers with commas
     return parseInt(amount).toLocaleString();
   },
+  formatFormId: (selector, b) => {
+    return "commentPost"+selector+b;
+  },
   get_emoji: () => {
     const randomNum = Math.random();
 

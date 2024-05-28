@@ -21,10 +21,15 @@ router.get('/', async (req, res) => {
     // we need to get comments here as well: refer to previous homework
     // Serialize data so the template can read it
     const posts = postsData.map((post) => post.get({ plain: true }));
+   
     log(posts)
     // Pass serialized data and session flag into template
+    let nextPostID =0;
+    posts.forEach(post => nextPostID = post.id > nextPostID ? post.id : nextPostID)
+    log(nextPostID+1);
     res.render('homepage', {
      posts, 
+     nextPostID: nextPostID,
       logged_in: req.session.logged_in
     });
   } catch (err) {

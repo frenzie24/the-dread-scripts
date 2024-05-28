@@ -1,25 +1,36 @@
-
 <div class="">
-    <form id="blogItemForm" class="w-96 flex flex-row flex-wrap">
-        
-        {{#if isPost}}
-        <label for="title" class="form-label w-40 bg-[#DBE9AD] rounded-t-lg px-2">Post Title </label>
+
+
+    {{#if isPost}}
+
+    <form id="blogItemFormPost{{id}}" class="blogItemForm w-96 flex flex-row flex-wrap">
+        <label for="title" class=" w-40 bg-[#DBE9AD] rounded-t-lg px-2">Post Title </label>
         <input class="form-input px-2  rounded-t-lg" type="text" id="title" placeholder="Title" value="" />
         {{else}}
-        {{/if}}
-        <label for="content" class="form-label w-40 bg-[#DBE9AD] rounded-t-lg px-2">Your Content</label>
-        <textarea id="content"></textarea>
-        <button class="h-8 w-fit p-2 bg-slate-400">
-            <h2>Add</h2>
-        </button>
-    </form>
-</div>
-{{!--
- <div class="">
-        <form id="commentForm" class="w-96 flex flex-row flex-wrap">
+
+        <form id="blogItemFormPost{{id}}Comment" class="blogItemForm w-96 flex flex-row flex-wrap">
+            {{/if}}
+            <label for="content" class="form-label w-40 bg-[#DBE9AD] rounded-t-lg px-2">Your Content</label>
             <textarea id="content"></textarea>
-            <button class="h-8 w-fit p-2 bg-slate-400">
-                <h2>Add New Comment</h2>
+            <button id="addBtn" class="h-8 w-fit p-2 bg-slate-400">
+                <h2>Add</h2>
             </button>
         </form>
-    </div>--}}
+</div>
+
+<script>
+
+    new BlogItemController({{ id }}, {{ isPost }})
+
+
+</script>
+
+{{!--
+<div class="">
+    <form id="commentForm" class="w-96 flex flex-row flex-wrap">
+        <textarea id="content"></textarea>
+        <button class="h-8 w-fit p-2 bg-slate-400">
+            <h2>Add New Comment</h2>
+        </button>
+    </form>
+</div>--}}

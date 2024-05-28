@@ -1,0 +1,32 @@
+<!-- Loop over each object in the projects array -->
+
+<div class="row mb-4 project">
+    <div class="col-md-5 pl-6">
+        <h2 class="pl-4">
+            <!-- Call helper function with triple brackets to render the emoji span as HTML -->
+
+            <p>Created by {{User.name}} on {{format_date date}}</p>
+
+            <a href="/post/{{id}}">{{name}}</a>
+        </h2>
+        <h1>{{title}}</h1>
+        <p>{{content}}</p>
+
+    </div>
+    {{#each Comments as |comment|}}
+    <div class="row mb-4 project">
+        <div class="pl-6">
+            <h2 class="pl-4">
+                <!-- Call helper function with triple brackets to render the emoji span as HTML -->
+                <p>Created by {{comment.User.name}} on {{format_date comment.date}}</p>
+
+
+            </h2>
+            <p>{{comment.content}}</p>
+
+        </div>
+    </div>
+    {{/each}}
+    {{> newBlogItem isPost=true}}
+   
+</div>
