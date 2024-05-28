@@ -45,6 +45,7 @@ const sess = {
     db: sequelize,
   }),
 };
+//hbs.setPartials('newBlogItem', '{{newBlogItem}}')
 // Add express-session and store as Express.js middleware
 app.use(session(sess));
 // Inform Express.js on which template engine to use

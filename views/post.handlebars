@@ -27,12 +27,6 @@
         </div>
     </div>
     {{/each}}
-    <div class="">
-        <form id="commentForm" class="w-96 flex flex-row flex-wrap">
-            <textarea id="content"></textarea>
-            <button class="h-8 w-fit p-2 bg-slate-400">
-                <h2>Add New Comment</h2>
-            </button>
-        </form>
-    </div>
+    {{> newBlogItem isPost=true}}
+   
 </div>
