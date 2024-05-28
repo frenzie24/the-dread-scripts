@@ -1,7 +1,7 @@
 const router = require('express').Router();
 const { Comment } = require('../../models');
 const withAuth = require('../../utils/auth');
-const { log, info, warn, error } = require('@frenzie24/logger')
+const { log, info, warn, error, highlight } = require('@frenzie24/logger')
 
 //create a new comment
 router.post('/', withAuth, async (req, res) => {
@@ -14,6 +14,8 @@ router.post('/', withAuth, async (req, res) => {
             user_id: req.session.user_id,
         });
         log('Comment created.', 'green')
+        highlight(newComment)
+        if(res.redirected) res.redirect();
         res.status(200).json(newComment);
     } catch (err) {
         error(err)
