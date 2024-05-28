@@ -30,6 +30,7 @@
   <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 
   <script src="./js/blogItem.js"></script>
+  <script src="./js/logout.js"></script>
   <title>The Dread Scripts</title>
 </head>
 
@@ -61,11 +62,13 @@
           THIS IS NOT BEHAVING AS EXPECTED AND NEEDS INVESTIGATION ON ALL VIEWS -Charles
           --}}
           {{#if logged_in}}
-          <a href="/login"><button class="p-2"><img class="h-4 m-auto" src="./assets/images/icons8-account-48.png"
+          <a href="/dashboard"><button class="p-2"><img class="h-4 m-auto" src="./assets/images/icons8-account-48.png"
                 alt="A dark green login icon represented by an arrow leading into a rounded square">Account</button>
           </a>
+          <button id="logoutBtn" class="p-2"><img class="h-8 m-auto" src="./assets/images/icons8-logout-48.png"
+              alt="A dark green logout icon">Logout</button>
           {{else}}
-          <a href="/dashboard"><button class="p-2"><img class="h-4 m-auto" src="./assets/images/icons8-login-48.png"
+          <a href="/login"><button class="p-2"><img class="h-4 m-auto" src="./assets/images/icons8-login-48.png"
                 alt="A dark green login icon represented by an arrow leading into a rounded square">Login</button>
           </a>
           {{/if}}
@@ -74,7 +77,7 @@
           </div>
           <button id="searchBtn" class="p-2"><img class="h-4 m-auto" src="./assets/images/icons8-search-48.png"
               alt="A dark green search icon represented by a magnifying glass">Search</button>
-              --}}
+          --}}
 
         </nav>
       </header>
@@ -83,12 +86,13 @@
       for instance when landing on the site for the first time, {{{body}}} will be the contents of
       homepage.handlebars
 
-  
+
       --}}
       {{{body}}}
     </div>
     {{!-- footer --}}
-    <footer class="h-32 w-full max-w-6xl mt-auto bg-cover rounded-t-lg bg-bottom bg-[url('./assets/images/forrest-log.jpg')] text-yellow-200">
+    <footer
+      class="h-32 w-full max-w-6xl mt-auto bg-cover rounded-t-lg bg-bottom bg-[url('./assets/images/forrest-log.jpg')] text-yellow-200">
       <div class="p-4">
         <div class="text-xs">The Dread Scripts © 2024</div>
         {{!-- ICONS ATTRIBUTION NEEDS ATTENTION!!!!!! -Charles --}}
@@ -103,10 +107,10 @@
     {{!--
     search js to link search results and population section.
 
-   
+
     --}}
   </main>
-   
+
 </body>
 
 </html>
