@@ -57,7 +57,7 @@
               alt="A dark green search icon represented by a magnifying glass">Search</button>
           --}}
           {{!--
-          if the user is logged in, display the profile btn and nav to profile on click
+          if the user is logged in, display the dashboard btn and nav to dashboard on click
           THIS IS NOT BEHAVING AS EXPECTED AND NEEDS INVESTIGATION ON ALL VIEWS -Charles
           --}}
           {{#if logged_in}}
@@ -65,7 +65,7 @@
                 alt="A dark green login icon represented by an arrow leading into a rounded square">Account</button>
           </a>
           {{else}}
-          <a href="/profile"><button class="p-2"><img class="h-4 m-auto" src="./assets/images/icons8-login-48.png"
+          <a href="/dashboard"><button class="p-2"><img class="h-4 m-auto" src="./assets/images/icons8-login-48.png"
                 alt="A dark green login icon represented by an arrow leading into a rounded square">Login</button>
           </a>
           {{/if}}

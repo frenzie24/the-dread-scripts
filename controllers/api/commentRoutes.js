@@ -16,7 +16,7 @@ router.post('/', withAuth, async (req, res) => {
         log('Comment created.', 'green')
         highlight(newComment)
         if(res.redirected) res.redirect();
-        res.status(200).json(newComment);
+        res.status(200).send({...req.body, user_id: req.session.user_id});
     } catch (err) {
         error(err)
         res.status(400).json(err);

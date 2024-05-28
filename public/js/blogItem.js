@@ -31,7 +31,14 @@ class BlogItemController {
                         method: 'POST',
                         body: JSON.stringify(Post),
                         headers: { 'Content-Type': 'application/json' },
-                    })
+                    }).then((res) => {
+                        if (res.ok) {
+                            location.reload(true);
+                            debugger;
+                        } else {
+                            alert(res.statusText);
+                        }
+                    });
                 }
 
             } else {
@@ -46,10 +53,7 @@ class BlogItemController {
                         headers: { 'Content-Type': 'application/json' },
                     }).then((res) => {
                         if (res.ok) {
-
-                         //   if (res.redirected) res.redirect();
-                            res.json().then(res => console.log(res))
-                            // document.location.replace('/profile');
+                            location.reload(true);
                             debugger;
                         } else {
                             alert(res.statusText);
