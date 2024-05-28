@@ -6,6 +6,7 @@ const { log, info, warn, error } = require('@frenzie24/logger')
 //create a new comment
 router.post('/', withAuth, async (req, res) => {
     info('attempting new comment')
+    log(req.body)
     try {
         // we try to create a comment data passed from the client (req.body)
         const newComment = await Comment.create({

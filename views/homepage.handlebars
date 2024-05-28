@@ -4,5 +4,7 @@
 {{> post post}}
 
 {{/each}}
-
+{{!-- call the newBlogItem partial view, 
+its a post and its nextid was provided by the server
+(this only matters for client side event assignbment) --}}
 {{> newBlogItem isPost=true id=nextPostID}}

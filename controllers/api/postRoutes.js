@@ -5,6 +5,7 @@ const { log, info, warn, error } = require('@frenzie24/logger')
 
 router.post('/', withAuth, async (req, res) => {
     info('attempting new Post')
+    log(req.body);
     try {
         const newPost = await Post.create({
             ...req.body,
