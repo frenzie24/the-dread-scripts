@@ -12,24 +12,24 @@ router.get('/', async (req, res) => {
         {
           model: User,
           attributes: ['name'],
-        }, {
-          model: Comment,
-          include: [{ model:User, attributes:['name']}]
-        },
+        }
       ],
     });
     // we need to get comments here as well: refer to previous homework
     // Serialize data so the template can read it
     const posts = postsData.map((post) => post.get({ plain: true }));
-   
+
     log(posts)
     // Pass serialized data and session flag into template
-    let nextPostID =0;
+    let nextPostID = 0;
+
     posts.forEach(post => nextPostID = post.id > nextPostID ? post.id : nextPostID)
-    log(nextPostID+1);
+    log(nextPostID + 1);
+
     res.render('homepage', {
-     posts, 
-     nextPostID: nextPostID,
+      posts,
+      nextPostID: nextPostID,
+      curernt_user_id: req.session.user_id,
       logged_in: req.session.logged_in
     });
   } catch (err) {
@@ -50,16 +50,16 @@ router.get('/post/', async (req, res) => {
       return;
     }
     // find the post by id, include related comments and related user's name attribute
-    
+
     info(`Attempting to retrieve post with id: ${_id}`)
     const postData = await Post.findByPk(_id, {
       include: [
         {
           model: User,
-          attributes: ['name'],
+          attributes: ['name', 'id'],
         }, {
           model: Comment,
-          include: [{ model:User, attributes:['name']}]
+          include: [{ model: User, attributes: ['id', 'name'] }]
         },
       ],
     });
@@ -76,11 +76,23 @@ router.get('/post/', async (req, res) => {
         Comments[any comments attached to this post will have its full data here and include the User.name related to the comment]
       }
     */
-    log(post)
+    log(req.session.logged_in)
+    log([post, post.Comments]);
+   
+    for (let i = 0; i < post.Comments.length; i++) {
+      post.Comments[i].current_user_id = req.session.user_id;
+    }
+    
+    log([post, post.Comments]);
+    const loggedIn = req.session.logged_in;
+    post.current_user_id = req.session.user_id;
+    //  log([currentUserId, typeof currentUserId], 'magenta')
+    //   let current_user_id = currentUserId ? currentUserId : -1;
     // render the post page
-    res.render('post', {
+    await res.render('post', {
       post,
-      logged_in: req.session.logged_in
+      //   current_user_id: current_user_id,
+      logged_in: loggedIn,
     });
   } catch (err) {
     // we had an eror log the error and send a message to the client
@@ -95,7 +107,8 @@ router.get('/dashboard', withAuth, async (req, res) => {
     // Find the logged in user based on the session ID
     const userData = await User.findByPk(req.session.user_id, {
       attributes: { exclude: ['password'] },
-      include: [{ model: Post , include:[{ model: Comment}]  
+      include: [{
+        model: Post, include: [{ model: Comment }]
       }]
     });
 
@@ -103,7 +116,8 @@ router.get('/dashboard', withAuth, async (req, res) => {
     log(user.Posts);
     res.render('dashboard', {
       ...user,
-      logged_in: true
+      logged_in: true,
+      dashboard: true
     });
   } catch (err) {
     res.status(500).json(err);

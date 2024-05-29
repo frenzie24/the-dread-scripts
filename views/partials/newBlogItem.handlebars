@@ -1,24 +1,24 @@
-<div class="">
+<div class="text-center flex flex-row flex-wrap mx-4 my-2 bg-slate-400 p-2 rounded-lg">
 
 
     {{#if isPost}}
 
-    <form id="blogItemFormPost{{id}}" class="blogItemForm w-96 flex flex-row flex-wrap">
-        <label for="title" class=" w-40 bg-[#DBE9AD] rounded-t-lg px-2">Post Title </label>
-        <input class="form-input px-2  rounded-t-lg" type="text" id="title" placeholder="Title" value="" />
-        <label for="content" class="form-label w-40 bg-[#DBE9AD] rounded-t-lg px-2">Your Content</label>
-        <textarea id="content"></textarea>
-        <button id="addBtn" class="h-8 w-fit p-2 bg-slate-400">
+    <form id="blogItemFormPost{{id}}" class="blogItemForm m-4 w-full flex flex-row flex-wrap text-white rounded-lg">
+        <label for="title" class=" w-full bg-slate-900 rounded-t-lg px-2">Post Title </label>
+        <input class="form-input px-2 w-full bg-slate-700 rounded-t-lg" type="text" id="title" placeholder="Title" value="" />
+        <label for="content" class="form-label w-full bg-slate-900 rounded-t-lg px-2">Write a Post</label>
+        <textarea id="content" class=" p-2 w-full bg-slate-700 rounded-md" ></textarea>
+        <button id="addBtn" class="h-8 w-fit p-2 bg-slate-400 rounded-lg">
             <h2>Add</h2>
         </button>
     </form>
     {{else}}
 
-    <form id="blogItemFormPost{{id}}Comment" class="blogItemForm w-96 flex flex-row flex-wrap">
-        <label for="content" class="form-label w-40 bg-[#DBE9AD] rounded-t-lg px-2">Your Content</label>
-        <textarea id="content"></textarea>
-        <button id="addBtn" class="h-8 w-fit p-2 bg-slate-400">
-            <h2>Add</h2>
+    <form id="blogItemFormPost{{id}}Comment" class="blogItemForm w-full flex flex-row flex-wrap">
+        <label for="content" class="form-label w-full bg-slate-900 rounded-t-lg px-2">Leave a Comment</label>
+        <textarea id="content"  class=" p-2 w-full bg-slate-700 rounded-b-md" ></textarea>
+        <button id="addBtn" class="h-8 w-fit p-2 bg-slate-400 rounded-lg">
+            <h2 class="">Add</h2>
         </button>
     </form>
     {{/if}}

@@ -1,0 +1,48 @@
+  <header class="sticky top-0 flex justify-between items-center flex-row flex-wrap text-center px-4 bg-black">
+        <!-- left nav -->
+        <nav class="flex flex-row flex-wrap">
+          <a href="/"><button class="p-2"><img class="h-8 m-auto" src="./assets/images/icons8-home-48.png"
+                alt="A dark green leaf icon">Home</button></a>
+
+        </nav>
+        <!-- Title -->
+        <h3 class="font-normal text-4xl p-1">The Dread Scripts</h3>
+        <!-- right nav -->
+        <nav class="flex flex-row text-center">
+          {{!-- buttons with icon and text on same line - needs text alignment fix
+          <button class="flex flex-row flex-wrap p-4 text-center"><img class="h-6 m-auto pr-1"
+              src="./assets/images/icons8-login-48.png"
+              alt="A dark green login icon represented by an arrow leading into a rounded square">Login</button>
+          <button class="flex flex-row flex-wrap p-4 text-center"><img class="h-6 m-auto pr-1"
+              src="./assets/images/icons8-search-48.png"
+              alt="A dark green search icon represented by a magnifying glass">Search</button>
+          --}}
+          {{!--
+          if the user is logged in, display the dashboard btn and nav to dashboard on click
+          THIS IS NOT BEHAVING AS EXPECTED AND NEEDS INVESTIGATION ON ALL VIEWS -Charles
+          --}}
+          {{#if logged_in}}
+          {{#if dashboard}}
+          <button id="logoutBtn" class="p-2"><img class="h-8 m-auto" src="./assets/images/icons8-logout-48.png"
+              alt="A dark green logout icon">Logout</button>
+          {{else}}
+          <a href="/dashboard"><button class="p-2"><img class="h-8 m-auto" src="./assets/images/icons8-dashboard-48.png"
+                alt="A dark green login icon represented by an arrow leading into a rounded square">Dashboard</button>
+          </a>
+          {{/if}}
+
+
+          {{else}}
+          <a href="/login"><button class="p-2"><img class="h-4 m-auto" src="./assets/images/icons8-login-48.png"
+                alt="A dark green login icon represented by an arrow leading into a rounded square">Login</button>
+          </a>
+          {{/if}}
+          {{!--<div id="search" class="hidden rounded-lg bg-[#B7D55D] px-2 py-1">
+            <input id="searchBar" type="text" class="h-full w-96 p-2" value="" placeholder="Search for plants">
+          </div>
+          <button id="searchBtn" class="p-2"><img class="h-4 m-auto" src="./assets/images/icons8-search-48.png"
+              alt="A dark green search icon represented by a magnifying glass">Search</button>
+          --}}
+
+        </nav>
+      </header>

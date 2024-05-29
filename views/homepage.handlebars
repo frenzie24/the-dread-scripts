@@ -1,10 +1,10 @@
 <!-- Loop over each object in the projects array -->
 {{#each posts as |post| }}
 {{! use the post partial view}}
-{{> postPartial post}}
+{{> postPartial post homepage=true}}
 
 {{/each}}
 {{!-- call the newBlogItem partial view, 
 its a post and its nextid was provided by the server
 (this only matters for client side event assignbment) --}}
-{{> newBlogItem isPost=true id=nextPostID}}
+{{!--{> newBlogItem isPost=true id=nextPostID}}--}}

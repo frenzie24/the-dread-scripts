@@ -21,6 +21,25 @@ class BlogItemController {
                 });
 
                 if (response.ok) {
+                    location.replace('/dashboard')
+                } else {
+                    debugger;
+                    document.location.replace('/dashboard')// = response.url;
+                    //   alert('Failed to delete plant');
+                }
+            }
+        }
+
+        const deleteComment = async (ev) => {
+            ev.preventDefault();
+            if (ev.currentTarget.hasAttribute('data-id')) {
+                const id = ev.currentTarget.getAttribute('data-id');
+
+                const response = await fetch(`/api/comments/${id}`, {
+                    method: 'DELETE',
+                });
+
+                if (response.ok) {
                     location.reload(true);
                 } else {
                     debugger;
@@ -73,9 +92,9 @@ class BlogItemController {
                     }).then((res) => {
                         if (res.ok) {
                             location.reload(true);
-                            debugger;
+                            
                         } else {
-                            alert(res.statusText);
+                            location.replace('./login');
                         }
                     });
                 }
@@ -90,8 +109,9 @@ class BlogItemController {
         $(() => {
 
             $(`#${this.selector} #addBtn`).on('click', handleAdd);
+          //  if (isPost) $(`#deletePostBtn${this.postId}`).on('click', deletePost)
+             $(`#deleteCommentBtn${this.postId}`).on('click', deleteComment);
 
-            $(`#deletePostBtn${this.postId}`).on('click', deletePost)
         })
 
 

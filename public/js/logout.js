@@ -3,12 +3,13 @@ const logout = async () => {
   const response = await fetch('/api/users/logout', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-  }).then(() => {
-    if (response.ok) {
+  }).then((res) => {
+    if (res.ok) {
       // if we logged out correctly, go to the homepage
       document.location.replace('/');
     } else {
-      alert(response.statusText);
+      
+      alert(res.statusText);
     }
   });
 };

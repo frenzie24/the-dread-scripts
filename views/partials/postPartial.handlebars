@@ -1,28 +1,35 @@
 <!-- Loop over each object in the projects array -->
 
-<div id='post{{id}}' class="row mb-4 bg-slate-600 rounded-md text-white ">
-    <div class="pl-6">
-        <h2 class="pl-4">
+<div id='post{{id}}' class="row m-4 bg-slate-600 rounded-md text-white ">
+    <div class="p-2 m-4 flex flex-row flex-wrap bg-slate-400 rounded-lg">
+
+        <a class=" w-full bg-slate-800 rounded-t-lg p-2" href="/post?id={{id}}">
+            <h1>{{title}}</h1>
+        </a>
+        <h2 class=" text-sm w-full bg-slate-900  px-2 py-1">
             <!-- Call helper function with triple brackets to render the emoji span as HTML -->
 
-            <p>Created by {{User.name}} on {{format_date date}}</p>
+            Post Written by {{user_id}} on {{format_date date}}
 
 
         </h2>
-        <a href="/post?id={{id}}">
-            <h1>{{title}}</h1>
-        </a>
 
-        <textarea id="postContent" class=" p-2 bg-slate-700 rounded-md" disabled>{{content}}</textarea>
+        <textarea id="postContent" class="p-2 bg-slate-700 w-full rounded-b-md" disabled>{{content}}</textarea>
 
     </div>
     {{#each Comments as |comment|}}
-    {{> comment comment}}
+    {{> comment comment}}{{!-- user_id current_user_id}} --}}
     {{/each}}
+    {{#unless homepage}}
+    {{> newBlogItem user_id current_user_id=current_user_id isPost=false postid=id }}
 
-    {{> newBlogItem isPost=false id=id}}
-    <button id='deletePostBtn{{id}}' class="btn btn-sm btn-danger p-2" data-id="{{id}}"><img
-            class="h-8 m-auto" src="./assets/images/icons8-delete-48.png" alt="A dark green delete icon">DELETE</button>
+    {{!--{{#if (compareId user_id current_user_id)}}
+    <button id='deletePostBtn{{id}}' class="btn btn-sm btn-danger p-2" data-id="{{id}}"><img class="h-8 m-auto"
+            src="./assets/images/icons8-delete-48.png" alt="A dark green delete icon">DELETE</button>
     <button class="p-2" name="{{id}}" id="editPostBtn"><img class="h-8 m-auto" src="./assets/images/icons8-edit-48.png"
             alt="A dark green save icon">Edit</button>
+    {{/if}}--}}
+    {{/unless}}
+
+<script>new PostController({{id}})</script>
 </div>
