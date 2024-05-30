@@ -14,7 +14,8 @@ router.post('/', withAuth, async (req, res) => {
         log('Post created.', 'green')
         res.status(200).json(newPost);
     } catch (err) {
-        error(err)
+        warn('We ran into an error:')
+error(err);
         res.status(400).json(err);
     }
 });
@@ -39,7 +40,8 @@ router.delete('/:id', withAuth, async (req, res) => {
         log('Post deleted', 'green');
         res.status(200).json(postData);
     } catch (err) {
-        error(err)
+        warn('We ran into an error:')
+error(err);
         res.status(500).json(err);
     }
 });

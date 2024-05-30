@@ -10,9 +10,9 @@ module.exports = {
     return parseInt(amount).toLocaleString();
   },
   compareId: (a, b) => {
-    log([a,b, [a ==b]])
+   // log([a,b, [a ==b]])
     if(!a || !b) return false;
-     log([a,b, [a ==b]])
+     log(['Comparing user_id to current_user',a,b, [a ==b]])
     return a == b;
   },
   formatFormId: (selector, b) => {

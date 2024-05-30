@@ -49,7 +49,8 @@ router.post('/login', async (req, res) => {
     });
 
   } catch (err) {
-    error(err);
+    warn('We ran into an error:')
+error(err);;
     res.status(400).json(err);
   }
 });

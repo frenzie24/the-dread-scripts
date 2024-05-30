@@ -19,7 +19,8 @@ router.post('/', withAuth, async (req, res) => {
         if(res.redirected) res.redirect();
         res.status(200).send({...req.body, user_id: req.session.user_id});
     } catch (err) {
-        error(err)
+        warn('We ran into an error:')
+error(err);
         res.status(400).json(err);
     }
 });
@@ -57,7 +58,8 @@ router.delete('/:id', withAuth, async (req, res) => {
         res.status(200).json(commentData);
     } catch (err) {
         // we had an error somewhere, log the error and send a message back to the client
-        error(err)
+        warn('We ran into an error:')
+error(err);
         res.status(500).json(err);
     }
 });
