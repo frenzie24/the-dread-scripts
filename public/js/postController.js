@@ -34,7 +34,7 @@ class PostController {
         content: $('#postContent').val(),
       }
       if (update) {
-        const response = await fetch(`/post/?id=${this.id}`, {
+        const response = await fetch(`/api/posts/?id=${this.id}`, {
           method: 'PATCH',
           body: JSON.stringify({ ...update }),
           headers: { 'Content-Type': 'application/json' },

@@ -1,6 +1,7 @@
 const router = require('express').Router();
 const { Post, User, Comment } = require('../models');
 const withAuth = require('../utils/auth');
+const handleError = require('../utils/handleError')
 const { log, info, warn, error } = require('@frenzie24/logger');
 
 router.get('/', async (req, res) => {
@@ -37,55 +38,8 @@ router.get('/', async (req, res) => {
   }
 });
 
-router.patch('/post', withAuth, async (req, res) => {
-  log('============================');
-  log(`updating post id: ${req.body.id}`);
-  log(req.body, 'red', 'bgWhite');
-  log(req.body.content)
 
-  try {
-    const _id = Math.floor(req.query.id);
-    if (!Number.isInteger(_id)) {
-      warn(`Bad request: id invalid`);
-      return res.status(400).json({ issue: 'id provided is invalid', solution: 'id needs to be an integer' });
 
-    }
-    const post = await Post.findByPk(_id)
-
-    post.title = req.body.title;
-    post.content = req.body.content;
-    post.save();
-    return res.status(200).redirect(`/post?id=${req.body.id}`);
-
-  } catch (err) {
-    handleError(err, req.session.logged_in, res);
-  }
-});
-
-router.patch('/comment', withAuth, async (req, res) => {
-  log('============================');
-  info(`updating comment id: ${req.query.id}`);
-  log(req.body, 'red', 'bgWhite');
-  // log(req.body.content)
-
-  try {
-
-    const _id = Math.floor(req.query.id);
-    if (!Number.isInteger(_id)) {
-      warn(`Bad request: id invalid`);
-     return handleError(err, req.session.logged_in, res);
-
-    }
-    const comment = await Comment.findByPk(_id)
-
-    comment.content = req.body.content;
-    comment.save();
-    return res.status(200);
-
-  } catch (err) {
-    return handleError(err, req.session.logged_in, res);
-  }
-});
 
 // navs to post and gets data from associated id
 router.get('/post/', async (req, res) => {
@@ -173,17 +127,6 @@ router.get('/login', (req, res) => {
   res.render('login');
 });
 
-const handleError = (err, logged_in, res) => {
-  warn('We ran into an error:')
-  error(err);
-  if (logged_in) {
-    return res.render('dashboard', {
-      ...user,
-      logged_in: true,
-      dashboard: true
-    });
-  } else return res.render('login');
 
-}
 
 module.exports = router;

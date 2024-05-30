@@ -18,7 +18,7 @@ class CommentController {
         if (response.ok) {
           location.reload(true);
         } else {
-          debugger;
+         // debugger;
           document.location.replace('/login');
           //   alert('Failed to delete plant');
         }
@@ -35,7 +35,7 @@ class CommentController {
         content: $('#commentContent').val(),
       }
       if (update) {
-        const response = await fetch(`/comment/?id=${this.id}`, {
+        const response = await fetch(`/api/comments/?id=${this.id}`, {
           method: 'PATCH',
           body: JSON.stringify({ ...update }),
           headers: { 'Content-Type': 'application/json' },
