@@ -27,14 +27,14 @@ router.get('/', async (req, res) => {
     posts.forEach(post => nextPostID = post.id > nextPostID ? post.id : nextPostID)
     log(nextPostID + 1);
 
-   return res.render('homepage', {
+    return res.render('homepage', {
       posts,
       nextPostID: nextPostID,
       curernt_user_id: req.session.user_id,
       logged_in: req.session.logged_in
     });
   } catch (err) {
-   return  handleError(err, req.session.logged_in, res);
+    return handleError(err, req.session.logged_in, res);
   }
 });
 
@@ -50,7 +50,7 @@ router.get('/post/', async (req, res) => {
     // if _id is not an integer then exit 
     if (!Number.isInteger(_id)) {
       warn(`Bad request: id invalid`); handleError(err, req.session.logged_in, res);
-    
+
     }
     // find the post by id, include related comments and related user's name attribute
 
@@ -92,6 +92,42 @@ router.get('/post/', async (req, res) => {
     return handleError(err, req.session.logged_in, res);
   }
 });
+
+
+// navs to post and gets data from associated id
+router.get('/comment/', async (req, res) => {
+
+  try {
+    const _id = Math.floor(req.query.id);
+    log(`id: ${_id}`);
+    // if _id is not an integer then exit 
+    if (!Number.isInteger(_id)) {
+      warn(`Bad request: id invalid`); handleError(err, req.session.logged_in, res);
+
+    }
+    // find the comment by id, include related comments and related user's name attribute
+
+    info(`Attempting to retrieve comment with id: ${_id}`)
+    const commentData = await Post.findByPk(_id, {
+      include: [
+        {
+          model: User,
+          attributes: ['name', 'id'],
+        }
+
+
+      ],
+    });
+
+    const comment = commentData.get({ plain: true });
+    return handleError(`You dont belong here, ${comment.User.name}.  Sending you to login.`, req.session.logged_in, res);
+    
+  } catch (err) {
+    // we had an eror log the error and send a message to the client
+    return handleError(err, req.session.logged_in, res);
+  }
+});
+
 
 // Use withAuth middleware to prevent access to route
 router.get('/dashboard', withAuth, async (req, res) => {

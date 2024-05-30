@@ -1,3 +1,4 @@
+const { warn, error } = require('@frenzie24/logger');
 const handleError = (err, logged_in, res) => {
     warn('We ran into an error:')
     error(err);

@@ -73,7 +73,7 @@ class PostController {
     $(() => {
       $(`#deletePostBtn${id}`).on('click', deletePost);
       $(`#editPostBtn`).on('click', handleEditToggle);
-      $('#')
+     
     })
   }
 }
