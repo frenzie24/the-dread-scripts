@@ -1,5 +1,5 @@
 const { warn, error } = require('@frenzie24/logger');
-const handleError = (err, logged_in, res) => {
+const handleError = (err, logged_in, res, next) => {
     warn('We ran into an error:')
     error(err);
     if (logged_in) {

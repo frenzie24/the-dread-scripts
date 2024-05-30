@@ -51,7 +51,7 @@ router.patch('/', withAuth, async (req, res) => {
         return res.status(200);//redirect(`/post?id=${req.body.id}`);
 
     } catch (err) {
-        handleError(err, req.session.logged_in, res);
+        return handleError(err, req.session.logged_in, res);
     }
 });
 
