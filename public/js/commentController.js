@@ -32,7 +32,7 @@ class CommentController {
         user_id: this.user_id,
         id: this.id,
         post_id: this.post_id,
-        content: $('#commentContent').val(),
+        content: $(`#commentContent${id}`).val(),
       }
       if (update) {
         const response = await fetch(`/api/comments/?id=${this.id}`, {
@@ -52,9 +52,7 @@ class CommentController {
 
     const handleEditToggle = async (ev) => {
       ev.preventDefault();
-      $('#titleLink').toggle();
-      $('#titleInput').toggle();
-
+    
       let content = $(`#commentContent${this.id}`);
       // $('#')
       let img = $(`#commentEditImg${this.id}`);

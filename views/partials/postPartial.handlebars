@@ -23,7 +23,7 @@
     {{> comment comment}}{{!-- user_id current_user_id}} --}}
     {{/each}}
     {{#unless homepage}}
-    {{> newBlogItem user_id current_user_id=current_user_id isPost=false postid=id }}
+    {{> newBlogItem user_id=user_id current_user_id=current_user_id isPost=false postid=id }}
 
     {{#if (compareId user_id current_user_id)}}
     <button id='deletePostBtn{{id}}' class="btn btn-sm btn-danger p-2" data-id="{{id}}"><img class="h-8 m-auto"

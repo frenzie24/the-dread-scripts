@@ -38,36 +38,36 @@ router.delete('/:id', withAuth, async (req, res) => {
     } catch (err) {
         // we had an error somewhere, log the error and send a message back to the client
         warn('We ran into an error:')
-error(err);
+        error(err);
         res.status(500).json(err);
     }
 });
 
 //update comment
-router.patch('/comment', withAuth, async (req, res) => {
+router.patch('/', withAuth, async (req, res) => {
     log('============================');
     info(`updating comment id: ${req.query.id}`);
     log(req.body, 'red', 'bgWhite');
     // log(req.body.content)
-  
+
     try {
-  
-      const _id = Math.floor(req.query.id);
-      if (!Number.isInteger(_id)) {
-        warn(`Bad request: id invalid`);
-       return handleError(err, req.session.logged_in, res);
-  
-      }
-      const comment = await Comment.findByPk(_id)
-  
-      comment.content = req.body.content;
-      comment.save();
-      return res.status(200);
-  
+
+        const _id = Math.floor(req.query.id);
+        if (!Number.isInteger(_id)) {
+            warn(`Bad request: id invalid`);
+            return handleError(err, req.session.logged_in, res);
+
+        }
+        const comment = await Comment.findByPk(_id)
+
+        comment.content = req.body.content;
+        comment.save();
+        return res.status(200);
+
     } catch (err) {
-      return handleError(err, req.session.logged_in, res);
+        return handleError(err, req.session.logged_in, res);
     }
-  });
+});
 
 //create a new comment
 router.post('/', withAuth, async (req, res) => {
@@ -82,12 +82,13 @@ router.post('/', withAuth, async (req, res) => {
         });
         log('Comment created.', 'green')
         highlight(newComment)
-        if(res.redirected) res.redirect();
-        res.status(200).send({...req.body, user_id: req.session.user_id});
+        if (res.redirected) res.redirect();
+        res.status(200).send({ ...req.body, user_id: req.session.user_id });
     } catch (err) {
         warn('We ran into an error:')
-error(err);
+        error(err);
         res.status(400).json(err);
+        handleError(err, req.session.logged_in, res);
     }
 });
 
