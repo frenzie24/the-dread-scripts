@@ -1,3 +1,5 @@
+const { log } = require("@frenzie24/logger");
+
 module.exports = {
   format_date: (date) => {
     // Format date as MM/DD/YYYY
@@ -6,6 +8,15 @@ module.exports = {
   format_amount: (amount) => {
     // format large numbers with commas
     return parseInt(amount).toLocaleString();
+  },
+  compareId: (a, b) => {
+   // log([a,b, [a ==b]])
+    if(!a || !b) return false;
+     log(['Comparing user_id to current_user',a,b, [a ==b]])
+    return a == b;
+  },
+  formatFormId: (selector, b) => {
+    return "commentPost"+selector+b;
   },
   get_emoji: () => {
     const randomNum = Math.random();

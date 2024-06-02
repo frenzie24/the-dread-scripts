@@ -1,0 +1,21 @@
+<div class="row mb-4 project mx-4 bg-slate-400 rounded-lg">
+    <div class="p-2 flex flex-row flex-wrap">
+        <h2 class=" text-sm w-full  w-full bg-slate-900 rounded-t-lg px-2 py-1">
+            <!-- Call helper function with triple brackets to render the emoji span as HTML -->
+           Comment Written by {{User.name}} on {{format_date date}}
+
+
+        </h2>
+        <textarea id="commentContent{{id}}" class="bg-slate-700 text-white w-full rounded-b-md p-2" value="" disabled>{{content}}</textarea>
+       
+   
+
+    {{#if (compareId user_id current_user_id)}}
+    <button id='deleteCommentBtn{{id}}' class="btn btn-sm btn-danger p-2" data-id="{{id}}"><img id="commentEditImg{{id}}" class="h-8 m-auto"
+            src="./assets/images/icons8-delete-48.png" alt="A dark green delete icon">DELETE</button>
+    <button class="p-2" name="{{id}}" id="editCommentBtn{{id}}"><img class="h-8 m-auto" src="./assets/images/icons8-edit-48.png"
+            alt="A dark green save icon">Edit</button>
+    {{/if}}
+</div>
+</div>
+<script>new CommentController({{id}}, {{user_id}}, {{post_id}});</script>

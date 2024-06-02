@@ -20,7 +20,7 @@ Comment.init(
         },
         // this is how we know what user our comments belong too
         // use use this FK to attach related comments to a user
-        // we can use this relation to display user's comments on their profile etc
+        // we can use this relation to display user's comments on their dashboard etc
         user_id: {
             type: DataTypes.INTEGER,
             references: {

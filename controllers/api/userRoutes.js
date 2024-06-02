@@ -17,6 +17,7 @@ router.post('/', async (req, res) => {
   }
 });
 
+// handles logging in
 router.post('/login', async (req, res) => {
   info('attempting log in')
   try {
@@ -31,7 +32,7 @@ router.post('/login', async (req, res) => {
     }
 
     const validPassword = await userData.checkPassword(req.body.password);
-
+    // check the password, if submitted password does not match stored hash password for user then exit
     if (!validPassword) {
       error(`invalid password attempt;`)
       res
@@ -48,7 +49,8 @@ router.post('/login', async (req, res) => {
     });
 
   } catch (err) {
-    error(err);
+    warn('We ran into an error:')
+error(err);;
     res.status(400).json(err);
   }
 });
@@ -56,6 +58,7 @@ router.post('/login', async (req, res) => {
 router.post('/logout', (req, res) => {
   if (req.session.logged_in) {
     req.session.destroy(() => {
+      log('Log out success');
       res.status(204).end();
     });
   } else {

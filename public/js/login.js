@@ -15,8 +15,8 @@ const loginFormHandler = async (event) => {
     });
 
     if (response.ok) {
-      // If successful, redirect the browser to the profile page
-      document.location.replace('/profile');
+      // If successful, redirect the browser to the dashboard page
+      document.location.replace('/dashboard');
     } else {
       alert(response.statusText);
     }
@@ -35,13 +35,19 @@ const signupFormHandler = async (event) => {
       method: 'POST',
       body: JSON.stringify({ name, email, password }),
       headers: { 'Content-Type': 'application/json' },
+    }).then((res) =>{
+      if (res.ok) {
+        document.location.replace('/dashboard');
+      } else {
+        alert(res.statusText);
+      }
     });
-
+/*
     if (response.ok) {
-      document.location.replace('/profile');
+      document.location.replace('/dashboard');
     } else {
       alert(response.statusText);
-    }
+    }*/
   }
 };
 
