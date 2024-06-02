@@ -24,7 +24,7 @@ class PostController {
       }
     }
 
-    const updatePost = async () => {
+    const updateComment = async () => {
 
 
       let update = {
@@ -62,7 +62,7 @@ class PostController {
       // Ur NoT nOt DiSaBlEd, CoNtEnT!
       content.prop("disabled", !content.prop("disabled"));
       // if content was input was just disabled, we just finished editing so send the update to the server
-      if (content.prop('disabled')) await updatePost()
+      if (content.prop('disabled')) await updateComment()
       // store the current value of img's src
       let currImgSrc = img.attr('src');
       img.attr('src', this.nextImgSrc);
